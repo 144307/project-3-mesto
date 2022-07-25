@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Mesto</title>
+    <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
+  </head>
+
+  <body class="page">
+    <header class="header">
+      <img
+        class="header__logo"
+        src="<%=require('./images/Vector.svg')%>"
+        alt="логотип"
+      />
+    </header>
+    <main>
+      <section class="profile page__size">
+        <div class="profile__avatar-container">
+          <img class="profile__avatar" alt="аватар профиля" />
+          <div class="profile__avatar-overlay">
+            <div class="profile__avatar-overlay_icon"></div>
+          </div>
+        </div>
+        <div class="profile__intro page__size">
+          <div class="profile__intro-title-group">
+            <h1 class="profile__intro-title"></h1>
+            <button
+              class="profile__edit-button"
+              type="button"
+              name="profile__edit-button"
+              value=""
+            ></button>
+          </div>
+          <p class="profile__intro-subtitle"></p>
+        </div>
+        <button
+          class="profile__add-button"
+          type="button"
+          name="profile__add-button"
+          value=""
+        ></button>
+      </section>
+      <section class="elements page__size"></section>
+    </main>
+    <footer class="footer page__size">
+      <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
+    </footer>
+    <div class="overlay overlay_type_profile">
+      <div class="overlay__container">
+        <button
+          class="overlay__close-button"
+          type="button"
+          id="close_profile_button"
+          name=""
+          value=""
+        ></button>
+        <form class="overlay__form" name="editForm" id="edit_form" novalidate>
+          <h2 class="overlay__form-title overlay__form-width">
+            Редактировать профиль
+          </h2>
+          <div class="input-group">
+            <input
+              class="overlay__form-input overlay__form-width"
+              type="text"
+              id="overlay__form-input_line-one"
+              name="overlay__form-input_line-one"
+              placeholder="Имя"
+              required
+              autocomplete="off"
+              minlength="2"
+              maxlength="40"
+            />
+            <div
+              class="overlay__form-new-card-name-input-error overlay__form-error overlay__form-width"
+              id="CardNameErrorMessage"
+            ></div>
+          </div>
+          <div class="input-group">
+            <input
+              class="overlay__form-input overlay__form-width"
+              type="text"
+              id="overlay__form-input_line-two"
+              name="overlay__form-input_line-two"
+              placeholder="О себе"
+              required
+              autocomplete="off"
+              minlength="2"
+              maxlength="40"
+            />
+            <div
+              class="overlay__form-new-card-url-input-error overlay__form-error overlay__form-width"
+              id="overlay__form-new-card-url-input-error"
+            ></div>
+          </div>
+          <input
+            class="overlay__form-button overlay__form-width"
+            type="submit"
+            name="overlay__form-button"
+            placeholder=""
+            value="Сохранить"
+            disabled
+          />
+        </form>
+      </div>
+    </div>
+    <div class="overlay overlay_type_card-add">
+      <div class="overlay__container">
+        <button
+          class="overlay__close-button"
+          type="button"
+          id="close_card-add_button"
+          name=""
+          value=""
+        ></button>
+        <form class="overlay__form" name="newCardForm" id="add_form" novalidate>
+          <h2 class="overlay__form-title overlay__form-width">Новое место</h2>
+          <div class="input-group">
+            <input
+              class="overlay__form-input overlay__form-width"
+              type="text"
+              id="overlay__form-new-card-name-input"
+              name="overlay__form-input_line-one"
+              placeholder="Название"
+              required=""
+              autocomplete="off"
+              minlength="2"
+              minlength="40"
+            />
+            <div
+              class="overlay__form-new-card-name-input-error overlay__form-error overlay__form-width"
+              id="CardNameErrorMessage"
+            ></div>
+          </div>
+          <div class="input-group">
+            <input
+              class="overlay__form-input overlay__form-width"
+              type="url"
+              id="overlay__form-new-card-url-input"
+              name="overlay__form-input_line-two"
+              placeholder="Ссылка на картинку"
+              required=""
+              autocomplete="off"
+            />
+            <div
+              class="overlay__form-new-card-url-input-error overlay__form-error overlay__form-width"
+              id="overlay__form-new-card-url-input-error"
+            ></div>
+          </div>
+          <input
+            class="overlay__form-button overlay__form-width"
+            type="submit"
+            name="overlay__form-button"
+            value="Создать"
+            disabled
+          />
+        </form>
+      </div>
+    </div>
+    <div class="overlay overlay_type_picture">
+      <div class="overlay__container">
+        <button
+          class="overlay__close-button"
+          type="button"
+          id="close_picture_button"
+          name=""
+          value=""
+        ></button>
+        <div class="overlay__image-popup">
+          <img class="overlay__image-popup-photo" src="" />
+          <div class="overlay__image-popup-tilte">
+            ${image.currentTarget.alt}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- new -->
+    <div class="overlay overlay_type_avatar-edit">
+      <div class="overlay__container">
+        <button
+          class="overlay__close-button"
+          type="button"
+          id="close_avatar-edit_button"
+          name=""
+          value=""
+        ></button>
+        <form
+          class="overlay__form overlay__form_type_one-input"
+          name="newCardForm"
+          id="avatar_edit_form"
+          novalidate
+        >
+          <h2 class="overlay__form-title overlay__form-width">
+            Обновить аватар
+          </h2>
+          <div class="input-group">
+            <input
+              class="overlay__form-input overlay__form-width"
+              type="url"
+              id="overlay__form-new-profile-image-input"
+              name="overlay__form-input_line-two"
+              placeholder="Ссылка на картинку"
+              required=""
+              autocomplete="off"
+            />
+            <!-- id="overlay__form-new-card-name-input"
+              name="overlay__form-input_line-one" -->
+            <div
+              class="overlay__form-new-card-name-input-error overlay__form-error overlay__form-width"
+              id="CardNameErrorMessage"
+            ></div>
+          </div>
+          <input
+            class="overlay__form-button overlay__form-width"
+            type="submit"
+            name="overlay__form-button"
+            value="Сохранить"
+            disabled
+          />
+        </form>
+      </div>
+    </div>
+    <template id="card">
+      <div class="card">
+        <div class="card__delete-button"></div>
+        <img class="card__image" src="" alt="" />
+        <div class="card__title-group">
+          <h2 class="card__title">Title</h2>
+          <div class="card__heart-container">
+            <button
+              class="card__heart"
+              type="button"
+              name="card__heart"
+              value=""
+            ></button>
+            <div class="card__heart-counter"></div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <!-- <script src="./index.js" type="module"></script> -->
+    <!-- <script src="./components/index.js" type="module"></script> -->
+    <!-- <script src="./components/validate.js" type="module"></script> -->
+  </body>
+</html>
