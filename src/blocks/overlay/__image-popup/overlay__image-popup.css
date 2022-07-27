@@ -1,0 +1,5 @@
+.overlay__image-popup {
+  display: flex;
+  /* display: none; */
+  flex-direction: column;
+}
