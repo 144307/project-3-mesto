@@ -1,0 +1,17 @@
+.profile__intro-title-group {
+  /* width: 100%; */
+  display: flex;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+
+@media screen and (max-width: 767px) {
+  .profile__intro-title-group {
+    margin-top: 22px;
+    /* margin: auto;
+    min-width: 0;
+    width: 282px; */
+    justify-content: center;
+  }
+}
