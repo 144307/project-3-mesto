@@ -1,0 +1,27 @@
+.header {
+  margin: auto;
+  width: calc(100vw - 400px);
+  min-width: 750px;
+  max-width: 886px;
+  min-height: 74px;
+  margin-top: 45px;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  /* display: flex; */
+  /* align-items: center */
+  box-sizing: border-box;
+}
+
+/* 
+.header__logo {
+  margin: auto auto auto 0;
+} */
+
+@media screen and (max-width: 767px) {
+  .header {
+    width: calc(100vw - 27px);
+    min-width: 320px;
+    padding-left: 27px;
+    margin-top: 28px;
+    min-height: 56px;
+  }
+}
