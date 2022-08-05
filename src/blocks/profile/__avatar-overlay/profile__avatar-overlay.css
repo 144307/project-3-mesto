@@ -1,0 +1,25 @@
+.profile__avatar-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile__avatar-overlay:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.profile__avatar-overlay:hover :nth-child(1) {
+  display: block;
+}
+
+.profile__avatar-overlay_icon {
+  display: none;
+  pointer-events: none;
+  width: 26px;
+  height: 26px;
+  background: url("../../../images/edit-button.svg") no-repeat;
+  background-size: cover;
+}
