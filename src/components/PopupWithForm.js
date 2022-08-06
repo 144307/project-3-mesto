@@ -19,12 +19,6 @@ export default class PopupWithForm extends Popup {
     this.submitButton.value = newValue;
   }
 
-  reset() {
-    for (let i = 0; i < this._inputList.length; i++) {
-      this._inputList[i].value = "";
-    }
-  }
-
   getInputValues() {
     this._formValues = {};
     this._inputList.forEach((input) => {
@@ -44,11 +38,10 @@ export default class PopupWithForm extends Popup {
       },
       true
     );
-    super.setListeners();
   }
 
   close() {
     super.close();
-    this.reset();
+    this.formPopup.reset();
   }
 }

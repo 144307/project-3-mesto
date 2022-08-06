@@ -194,13 +194,8 @@ function submitTitleChanges(event) {
       inputValues["overlay__form-input_line-one"],
       inputValues["overlay__form-input_line-two"]
     )
-    .then(() => {
-      myUserInfo.setUserInfo({
-        // name: inputValues[0],
-        // about: inputValues[1],
-        name: inputValues["overlay__form-input_line-one"],
-        about: inputValues["overlay__form-input_line-two"],
-      });
+    .then((response) => {
+      myUserInfo.setUserInfo(response);
       myProfilePopupWithForm.close();
     })
     .catch((error) => {
@@ -275,9 +270,7 @@ function submitUpdateAvatar(event) {
         "test inputValues",
         inputValues["overlay__form-input_line-one"]
       );
-      myUserInfo.setUserInfo({
-        avatar: inputValues["overlay__form-input_line-one"],
-      });
+      myUserInfo.setUserInfo(response);
       myAvatarPopupWithForm.close();
       console.log("profileAvatar", profileAvatar);
     })
