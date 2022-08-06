@@ -3,7 +3,6 @@ export default class UserInfo {
     this.nameObject = settings.nameObject;
     this.aboutObject = settings.aboutObject;
     this.avatarObject = settings.avatarObject;
-    // console.log("this.avatarObject", this.avatarObject);
   }
 
   setUserInfo(settings) {

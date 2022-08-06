@@ -275,7 +275,6 @@ function submitUpdateAvatar(event) {
         "test inputValues",
         inputValues["overlay__form-input_line-one"]
       );
-      // profileAvatar.src = inputValues["overlay__form-input_line-one"];
       myUserInfo.setUserInfo({
         avatar: inputValues["overlay__form-input_line-one"],
       });

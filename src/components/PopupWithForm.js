@@ -21,24 +21,13 @@ export default class PopupWithForm extends Popup {
 
   reset() {
     for (let i = 0; i < this._inputList.length; i++) {
-      // console.log("this._inputList", this._inputList[i].value);
       this._inputList[i].value = "";
-      // errors[i].textContent = "";
     }
   }
 
   getInputValues() {
-    // this._formValues = [];
     this._formValues = {};
-    // this._inputList = this.overlay.querySelectorAll(this.fromInputSelector);
-    // this._inputList.forEach((input) => {
-    //   this._formValues.push(input.value);
-    // });
     this._inputList.forEach((input) => {
-      // console.log("input.name", input.name)
-      // console.log(
-      //   "key " + input.name + " has value " + this._inputList[input.name]
-      // );
       this._formValues[input.name] = input.value;
     });
 
@@ -47,9 +36,6 @@ export default class PopupWithForm extends Popup {
 
   setListeners() {
     super.setListeners();
-    // this.submitButton = this.overlay.querySelector(
-    //   this.overlayFormButtonSelector
-    // );
     this.formPopup.addEventListener(
       "submit",
       (event) => {
