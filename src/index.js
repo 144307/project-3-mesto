@@ -185,6 +185,7 @@ const mySection = new Section(
 myApi
   .getInitialCards()
   .then((response) => {
+    owner = response[1]._id;
     myUserInfo.setUserInfo(response[1]);
     for (let i = 0; i < response[0].length; i++) {
       let owned = false;
