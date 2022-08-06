@@ -187,7 +187,7 @@ function openProfilePopup() {
 }
 
 function submitTitleChanges(event) {
-  myProfilePopupWithForm.toggleLoadingButton("Сохранение...");
+  myProfilePopupWithForm.renderLoading("Сохранение...");
   const inputValues = myProfilePopupWithForm.getInputValues();
   myApi
     .changeProfile(
@@ -207,12 +207,12 @@ function submitTitleChanges(event) {
       console.error("Error:", error);
     })
     .finally(() => {
-      myProfilePopupWithForm.toggleLoadingButton("Сохранить");
+      myProfilePopupWithForm.renderLoading("Сохранить");
     });
 }
 
 function submitCardCreation(event) {
-  myNewCardPopupWithForm.toggleLoadingButton("Создание...");
+  myNewCardPopupWithForm.renderLoading("Создание...");
   const inputValues = myNewCardPopupWithForm.getInputValues();
   console.log("inputValues", inputValues);
   myApi
@@ -255,14 +255,14 @@ function submitCardCreation(event) {
       console.error("Error:", error);
     })
     .finally(() => {
-      myNewCardPopupWithForm.toggleLoadingButton("Сохранить");
+      myNewCardPopupWithForm.renderLoading("Сохранить");
     });
 }
 
 function submitUpdateAvatar(event) {
   console.log("submitUpdateAvatar");
 
-  myAvatarPopupWithForm.toggleLoadingButton("Сохранение...");
+  myAvatarPopupWithForm.renderLoading("Сохранение...");
   const inputValues = myAvatarPopupWithForm.getInputValues();
   myApi
     .updateAvatar(inputValues["overlay__form-input_line-one"])
@@ -275,7 +275,10 @@ function submitUpdateAvatar(event) {
         "test inputValues",
         inputValues["overlay__form-input_line-one"]
       );
-      profileAvatar.src = inputValues["overlay__form-input_line-one"];
+      // profileAvatar.src = inputValues["overlay__form-input_line-one"];
+      myUserInfo.setUserInfo({
+        avatar: inputValues["overlay__form-input_line-one"],
+      });
       myAvatarPopupWithForm.close();
       console.log("profileAvatar", profileAvatar);
     })
@@ -283,7 +286,7 @@ function submitUpdateAvatar(event) {
       console.error("Error:", error);
     })
     .finally(() => {
-      myAvatarPopupWithForm.toggleLoadingButton("Сохранить");
+      myAvatarPopupWithForm.renderLoading("Сохранить");
     });
 }
 

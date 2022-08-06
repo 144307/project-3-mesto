@@ -9,12 +9,22 @@ export default class PopupWithForm extends Popup {
     this.formPopup = this.overlay.querySelector(this.formSelector);
     this.overlayFormButtonSelector = settings.overlayFormButtonSelector;
     this._inputList = this.overlay.querySelectorAll(this.fromInputSelector);
-
+    this.submitButton = this.overlay.querySelector(
+      this.overlayFormButtonSelector
+    );
     this.setListeners();
   }
 
-  toggleLoadingButton(newValue) {
+  renderLoading(newValue) {
     this.submitButton.value = newValue;
+  }
+
+  reset() {
+    for (let i = 0; i < this._inputList.length; i++) {
+      // console.log("this._inputList", this._inputList[i].value);
+      this._inputList[i].value = "";
+      // errors[i].textContent = "";
+    }
   }
 
   getInputValues() {
@@ -36,9 +46,10 @@ export default class PopupWithForm extends Popup {
   }
 
   setListeners() {
-    this.submitButton = this.overlay.querySelector(
-      this.overlayFormButtonSelector
-    );
+    super.setListeners();
+    // this.submitButton = this.overlay.querySelector(
+    //   this.overlayFormButtonSelector
+    // );
     this.formPopup.addEventListener(
       "submit",
       (event) => {
@@ -47,10 +58,11 @@ export default class PopupWithForm extends Popup {
       },
       true
     );
-    super.setEventListeners();
+    super.setListeners();
   }
 
   close() {
     super.close();
+    this.reset();
   }
 }

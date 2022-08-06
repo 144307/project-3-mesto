@@ -45,13 +45,16 @@ export default class FormValidator {
     inputField.classList.add(this.inputErrorClass);
   }
   hideInputError(inputField) {
-    const errors = this.formObject.querySelectorAll(
-      this.inputSubtitleErrorClass
-    );
+    // const errors = this.formObject.querySelectorAll(
+    //   this.inputSubtitleErrorClass
+    // );
     inputField.classList.remove(this.inputErrorClass);
-    for (let i = 0; i < errors.length; i++) {
-      errors[i].textContent = "";
-    }
+    inputField
+      .closest(this.formInputGroupSelector)
+      .querySelector(inputField.inputSubtitleErrorClass).textContent = "";
+    // for (let i = 0; i < errors.length; i++) {
+    //   errors[i].textContent = "";
+    // }
   }
 
   checkInput(inputField) {
@@ -72,7 +75,7 @@ export default class FormValidator {
   resetFormErrros() {
     for (let i = 0; i < this.inputFields.length; i++) {
       this.hideInputError(this.inputFields[i]);
-      this.inputFields[i].value = "";
+      // this.inputFields[i].value = "";
     }
     // }
     this.submitButton.disabled = true;

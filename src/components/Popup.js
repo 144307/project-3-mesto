@@ -24,7 +24,7 @@ export default class Popup {
     }
   };
 
-  setEventListeners() {
+  setListeners() {
     const closeButton = this.overlay.querySelector(
       this.overlayCloseButtonSelector
     );

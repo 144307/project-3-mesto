@@ -8,16 +8,24 @@ export default class UserInfo {
 
   setUserInfo(settings) {
     console.log("setUserInfo(settings)", settings);
-    this.nameObject.textContent = settings.name;
-    this.aboutObject.textContent = settings.about;
-    this.name = settings.name;
-    this.about = settings.about;
+    if (settings.name) {
+      this.nameObject.textContent = settings.name;
+      this.name = settings.name;
+    }
+
+    if (settings.about) {
+      this.aboutObject.textContent = settings.about;
+      this.about = settings.about;
+    }
+
     if (settings.avatar) {
       this.avatar = settings.avatar;
       console.log("userInfo", this.avatar);
       this.avatarObject.setAttribute("src", this.avatar);
     }
-    this.id = settings._id;
+    if (settings._id) {
+      this.id = settings._id;
+    }
   }
 
   getUserInfo() {

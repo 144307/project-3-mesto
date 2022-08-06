@@ -7,7 +7,7 @@ export default class PopupWithImage extends Popup {
     this.image = settings.image;
     this.title = settings.imageTitle;
     this.overlayCloseButtonSelector = settings.overlayCloseButtonSelector;
-    super.setEventListeners();
+    super.setListeners();
   }
 
   open(imageSettings) {

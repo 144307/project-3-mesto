@@ -24,7 +24,7 @@ export default class Card {
     this.createCard();
   }
 
-  setEventListeners() {
+  setListeners() {
     this.likeButton.addEventListener("click", (event) => {
       this._toggleLike(event, this._cardId, this._likes.length, this.counter);
     });
@@ -60,7 +60,7 @@ export default class Card {
     if (this._owned) {
       this.deleteButton.setAttribute("style", "display: block");
     }
-    this.setEventListeners();
+    this.setListeners();
     this.card = card;
     return card;
   }
