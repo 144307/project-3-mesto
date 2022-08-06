@@ -16,11 +16,7 @@ export default class Api {
       fetch(this.baseUrl + "/cards", {
         method: "GET",
         headers: this.headers,
-      })
-        .then(this.checkResponse)
-        .catch((error) => {
-          console.error("Error:", error);
-        }),
+      }).then(this.checkResponse),
       fetch(this.baseUrl + "/users/me", {
         method: "GET",
         headers: this.headers,
@@ -72,11 +68,7 @@ export default class Api {
     return fetch(this.baseUrl + "/cards/" + cardId, {
       method: "DELETE",
       headers: this.headers,
-    })
-      .then(this.checkResponse)
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }).then(this.checkResponse);
   }
 
   giveLike(cardId) {

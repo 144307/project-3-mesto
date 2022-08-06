@@ -4,12 +4,13 @@ export default class FormValidator {
     this.inputSelector = options.inputSelector;
     this.formSubmitButtonSelector = options.formSubmitButtonSelector;
     this.inputSubtitleErrorSelector = options.inputSubtitleErrorClass;
+    this.inputSubtitleErrorClass = options.inputSubtitleErrorClass;
     this.inputErrorClass = options.inputErrorClass;
     this.formObject = options.formObject;
-    // console.log("this.formObject", this.formObject);
-    // this.overlay = this.formObject.closest(".overlay__form");
-    // console.log("test", this.overlay, this.formObject);
-    this.errors = this.formObject.querySelectorAll(".overlay__form-error");
+    this.formInputGroupSelector = options.formInputGroupSelector;
+    // this.errors = this.formObject.querySelectorAll(
+    //   this.inputSubtitleErrorClass
+    // );
     this.enableValidation();
   }
 
@@ -24,9 +25,6 @@ export default class FormValidator {
     this.formObject.addEventListener("input", (event) => {
       this.checkForm();
     });
-    // this.inputs = Array.from(
-    //   this.formObject.querySelectorAll(this.inputSelector)
-    // );
     for (let j = 0; j < this.inputFields.length; j++) {
       this.inputFields[j].addEventListener("input", () => {
         this.checkInput(this.inputFields[j]);
@@ -47,9 +45,12 @@ export default class FormValidator {
     inputField.classList.add(this.inputErrorClass);
   }
   hideInputError(inputField) {
+    const errors = this.formObject.querySelectorAll(
+      this.inputSubtitleErrorClass
+    );
     inputField.classList.remove(this.inputErrorClass);
-    for (let i = 0; i < this.errors.length; i++) {
-      this.errors[i].textContent = "";
+    for (let i = 0; i < errors.length; i++) {
+      errors[i].textContent = "";
     }
   }
 
@@ -57,7 +58,7 @@ export default class FormValidator {
     const isValid = inputField.checkValidity();
 
     const errorMessage = inputField
-      .closest(".input-group")
+      .closest(this.formInputGroupSelector)
       .querySelector(inputField.inputSubtitleErrorClass);
     errorMessage.textContent = inputField.validationMessage;
 
@@ -69,15 +70,8 @@ export default class FormValidator {
   }
 
   resetFormErrros() {
-    // this.overlay = this.formObject.closest(".overlay__form");
-    // const errors = this.overlay.querySelectorAll(".overlay__form-error");
-    // for (let i = 0; i < this.errors.length; i++) {
-    //   this.errors[i].textContent = "";
-    // }
-    // if (this.inputFields.length > 0) {
     for (let i = 0; i < this.inputFields.length; i++) {
       this.hideInputError(this.inputFields[i]);
-      //     this.inputFields[i].classList.remove(this.inputErrorClass);
       this.inputFields[i].value = "";
     }
     // }

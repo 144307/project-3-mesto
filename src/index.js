@@ -17,19 +17,13 @@ import "./pages/index.css";
 let owner;
 
 import {
-  inputCardName,
-  inputCardImageUrl,
-  inputProfileImage,
-  // editProfileForm,
-  // addForm,
-  // avatarEditForm,
   profilePopup,
   newCardPopup,
   imagePopup,
   avatarEditPopup,
   profileAvatar,
-  profileObject,
-  profileInfo,
+  // profileObject,
+  // profileInfo,
   inputName,
   inputJob,
   overlayImage,
@@ -45,17 +39,15 @@ import {
   overlayOpenedClass,
   overlayCloseButtonSelector,
   overlayFormButtonSelector,
-  // formSelector,
-  // fromInputSelector,
-  // formSubmitButtonSelector,
-  // inputSubtitleErrorSelector,
-  // inputErrorClass,
+  formSelector,
+  fromInputSelector,
   editButton,
   addButton,
   editAvatarButton,
   editFormValidatorSettings,
   addFormValidatorSettings,
   avatarFormValidatorSettings,
+  userInfoConfig,
 } from "./utils/constants.js";
 
 const apiConfig = {
@@ -66,48 +58,10 @@ const apiConfig = {
   },
 };
 
-const userInfoConfig = {
-  nameObject: profileObject,
-  aboutObject: profileInfo,
-  // getUserInfo: () => {
-  //   myApi
-  //     .getInitialCards()
-  //     .then((response) => {
-  //       console.log("response test", response[1]);
-  //       return response[1];
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //     });
-  // },
-};
-
-// const editFormValidatorSettings = {
-//   formSelector: formSelector,
-//   inputSelector: fromInputSelector, // fromInputSelector
-//   formSubmitButtonSelector: formSubmitButtonSelector,
-//   inputSubtitleErrorClass: inputSubtitleErrorSelector,
-//   inputErrorClass: inputErrorClass,
-//   formObject: editProfileForm,
-//   overlayCloseButtonSelector: overlayCloseButtonSelector,
-// };
-// const addFormValidatorSettings = {
-//   formSelector: formSelector,
-//   inputSelector: fromInputSelector,
-//   formSubmitButtonSelector: formSubmitButtonSelector,
-//   inputSubtitleErrorClass: inputSubtitleErrorSelector,
-//   inputErrorClass: inputErrorClass,
-//   formObject: addForm,
-//   overlayCloseButtonSelector: overlayCloseButtonSelector,
-// };
-// const avatarFormValidatorSettings = {
-//   formSelector: formSelector,
-//   inputSelector: fromInputSelector,
-//   formSubmitButtonSelector: formSubmitButtonSelector,
-//   inputSubtitleErrorClass: inputSubtitleErrorSelector,
-//   inputErrorClass: inputErrorClass,
-//   formObject: avatarEditForm,
-//   overlayCloseButtonSelector: overlayCloseButtonSelector,
+// const userInfoConfig = {
+//   nameObject: profileObject,
+//   aboutObject: profileInfo,
+//   avatarObject: profileAvatar,
 // };
 
 const profilePopupSettings = {
@@ -115,7 +69,8 @@ const profilePopupSettings = {
   submit: (event) => {
     submitTitleChanges(event);
   },
-  // form: editProfileForm,
+  formSelector: formSelector,
+  fromInputSelector: fromInputSelector,
   overlayOpenedClass: overlayOpenedClass,
   overlayCloseButtonSelector: overlayCloseButtonSelector,
   overlayFormButtonSelector: overlayFormButtonSelector,
@@ -123,7 +78,8 @@ const profilePopupSettings = {
 
 const newCardPopupSettings = {
   popup: newCardPopup,
-  // form: addForm,
+  formSelector: formSelector,
+  fromInputSelector: fromInputSelector,
   submit: (event) => {
     submitCardCreation(event);
   },
@@ -133,7 +89,8 @@ const newCardPopupSettings = {
 };
 const avatarEditPopupSettings = {
   popup: avatarEditPopup,
-  // form: avatarEditForm,
+  formSelector: formSelector,
+  fromInputSelector: fromInputSelector,
   submit: (event) => {
     submitUpdateAvatar(event);
   },
@@ -152,18 +109,14 @@ const imagePopupSettings = {
 };
 
 const editValidate = new FormValidator(editFormValidatorSettings);
-// editValidate.enableValidation();
 const addValidate = new FormValidator(addFormValidatorSettings);
-// addValidate.enableValidation();
 const avatarValidate = new FormValidator(avatarFormValidatorSettings);
-// avatarValidate.enableValidation();
 
 const myApi = new Api(apiConfig);
 const myProfilePopupWithForm = new PopupWithForm(profilePopupSettings);
 const myNewCardPopupWithForm = new PopupWithForm(newCardPopupSettings);
 const myAvatarPopupWithForm = new PopupWithForm(avatarEditPopupSettings);
 const myImagePopupWithImage = new PopupWithImage(imagePopupSettings);
-// myImagePopupWithImage.setEventListeners();
 const myUserInfo = new UserInfo(userInfoConfig);
 
 function rerender(cardSettings) {
@@ -219,9 +172,9 @@ myApi
 
     mySection.renderAll(testElements);
 
-    profileObject.textContent = myUserInfo.name;
-    profileInfo.textContent = myUserInfo.about;
-    profileAvatar.setAttribute("src", myUserInfo.avatar);
+    // profileObject.textContent = myUserInfo.name;
+    // profileInfo.textContent = myUserInfo.about;
+    // profileAvatar.setAttribute("src", myUserInfo.avatar);
   })
   .catch((error) => {
     console.error("Error:", error);
@@ -229,8 +182,6 @@ myApi
 
 function openProfilePopup() {
   const info = myUserInfo.getUserInfo();
-  // inputName.value = profileObject.textContent;
-  // inputJob.value = profileInfo.textContent;
   inputName.value = info.name;
   inputJob.value = info.about;
 }
@@ -239,12 +190,16 @@ function submitTitleChanges(event) {
   myProfilePopupWithForm.toggleLoadingButton("Сохранение...");
   const inputValues = myProfilePopupWithForm.getInputValues();
   myApi
-    // .changeProfile(inputName.value, inputJob.value)
-    .changeProfile(inputValues[0], inputValues[1])
-    .then((response) => {
+    .changeProfile(
+      inputValues["overlay__form-input_line-one"],
+      inputValues["overlay__form-input_line-two"]
+    )
+    .then(() => {
       myUserInfo.setUserInfo({
-        name: inputValues[0],
-        about: inputValues[1],
+        // name: inputValues[0],
+        // about: inputValues[1],
+        name: inputValues["overlay__form-input_line-one"],
+        about: inputValues["overlay__form-input_line-two"],
       });
       myProfilePopupWithForm.close();
     })
@@ -261,14 +216,17 @@ function submitCardCreation(event) {
   const inputValues = myNewCardPopupWithForm.getInputValues();
   console.log("inputValues", inputValues);
   myApi
-    .addCard(inputValues[0], inputValues[1])
+    .addCard(
+      inputValues["overlay__form-input_line-one"],
+      inputValues["overlay__form-input_line-two"]
+    )
     .then((response) => {
       console.log("response =", response);
       const newCardId = response._id;
 
       const cardSettings = {
-        name: inputValues[0],
-        link: inputValues[1],
+        name: inputValues["overlay__form-input_line-one"],
+        link: inputValues["overlay__form-input_line-two"],
         likes: 0,
         owned: true,
         cardId: newCardId,
@@ -302,16 +260,22 @@ function submitCardCreation(event) {
 }
 
 function submitUpdateAvatar(event) {
-  // event.preventDefault();
   console.log("submitUpdateAvatar");
 
   myAvatarPopupWithForm.toggleLoadingButton("Сохранение...");
   const inputValues = myAvatarPopupWithForm.getInputValues();
   myApi
-    .updateAvatar(inputValues[0])
+    .updateAvatar(inputValues["overlay__form-input_line-one"])
     .then((response) => {
-      console.log("inputProfileImage.value", inputValues[0]);
-      profileAvatar.src = inputValues[0];
+      console.log(
+        "inputProfileImage.value",
+        inputValues["overlay__form-input_line-one"]
+      );
+      console.log(
+        "test inputValues",
+        inputValues["overlay__form-input_line-one"]
+      );
+      profileAvatar.src = inputValues["overlay__form-input_line-one"];
       myAvatarPopupWithForm.close();
       console.log("profileAvatar", profileAvatar);
     })
@@ -322,12 +286,6 @@ function submitUpdateAvatar(event) {
       myAvatarPopupWithForm.toggleLoadingButton("Сохранить");
     });
 }
-
-// avatarEditForm.addEventListener("submit", submitUpdateAvatar, true);
-
-// const editButton = document.querySelector(".profile__edit-button");
-// const addButton = document.querySelector(".profile__add-button");
-// const editAvatarButton = document.querySelector(".profile__avatar-overlay");
 
 editButton.addEventListener("click", function () {
   myProfilePopupWithForm.open();

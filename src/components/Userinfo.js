@@ -2,18 +2,21 @@ export default class UserInfo {
   constructor(settings) {
     this.nameObject = settings.nameObject;
     this.aboutObject = settings.aboutObject;
-    this.avatar = null;
-    this.id = null;
-    // this.getUserInfo = settings.getUserInfo;
-    // console.log("this.getUserInfo", this.getUserInfo);
+    this.avatarObject = settings.avatarObject;
+    // console.log("this.avatarObject", this.avatarObject);
   }
 
   setUserInfo(settings) {
+    console.log("setUserInfo(settings)", settings);
     this.nameObject.textContent = settings.name;
     this.aboutObject.textContent = settings.about;
     this.name = settings.name;
     this.about = settings.about;
-    this.avatar = settings.avatar;
+    if (settings.avatar) {
+      this.avatar = settings.avatar;
+      console.log("userInfo", this.avatar);
+      this.avatarObject.setAttribute("src", this.avatar);
+    }
     this.id = settings._id;
   }
 

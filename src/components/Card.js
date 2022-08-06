@@ -1,13 +1,5 @@
 // @ts-nocheck
 
-// import PopupWithImage from "./PopupWithImage.js";
-
-// const overlayImage = document.querySelector(".overlay__image-popup-photo");
-// const imagePopup = document.querySelector(".overlay_type_picture");
-
-// const myImagePopupWithImage = new PopupWithImage(imagePopup);
-// myImagePopupWithImage.setEventListeners();
-
 export default class Card {
   constructor(settings) {
     this._name = settings.name;
@@ -33,7 +25,6 @@ export default class Card {
   }
 
   setEventListeners() {
-    // console.log("setEventListeners Card.js");
     this.likeButton.addEventListener("click", (event) => {
       this._toggleLike(event, this._cardId, this._likes.length, this.counter);
     });
@@ -130,9 +121,6 @@ export default class Card {
       src: openButton.currentTarget.src,
       alt: openButton.currentTarget.alt,
     };
-    // this.overlayCloseButtonSelector
-
-    // myImagePopupWithImage.open(imageSettings);
     this.handleCardClick(imageSettings);
   }
 }

@@ -3,7 +3,6 @@ export default class Section {
     this.items = settings.items;
     this.rerender = settings.rerender;
     this.selector = selector;
-    // this.renderAll();
     this.container = document.querySelector(this.selector);
   }
 
@@ -14,9 +13,6 @@ export default class Section {
   }
 
   addItem(element) {
-    // const container = document.querySelector(this.selector);
     this.container.prepend(element);
   }
 }
-
-// PopupWithImage

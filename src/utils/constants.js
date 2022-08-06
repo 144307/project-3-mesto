@@ -18,9 +18,9 @@ export const imagePopup = document.querySelector(".overlay_type_picture");
 export const avatarEditPopup = document.querySelector(
   ".overlay_type_avatar-edit"
 );
-export const profileAvatar = document.querySelector(".profile__avatar");
 export const profileObject = document.querySelector(".profile__intro-title");
 export const profileInfo = document.querySelector(".profile__intro-subtitle");
+export const profileAvatar = document.querySelector(".profile__avatar");
 
 export const inputName = document.querySelector(
   "#overlay__form-input_line-one"
@@ -56,15 +56,17 @@ export const addButton = document.querySelector(".profile__add-button");
 export const editAvatarButton = document.querySelector(
   ".profile__avatar-overlay"
 );
+export const formInputGroupSelector = ".input-group";
 
 export const editFormValidatorSettings = {
   formSelector: formSelector,
-  inputSelector: fromInputSelector, // fromInputSelector
+  inputSelector: fromInputSelector,
   formSubmitButtonSelector: formSubmitButtonSelector,
   inputSubtitleErrorClass: inputSubtitleErrorSelector,
   inputErrorClass: inputErrorClass,
   formObject: editProfileForm,
   overlayCloseButtonSelector: overlayCloseButtonSelector,
+  formInputGroupSelector: formInputGroupSelector,
 };
 export const addFormValidatorSettings = {
   formSelector: formSelector,
@@ -74,6 +76,7 @@ export const addFormValidatorSettings = {
   inputErrorClass: inputErrorClass,
   formObject: addForm,
   overlayCloseButtonSelector: overlayCloseButtonSelector,
+  formInputGroupSelector: formInputGroupSelector,
 };
 export const avatarFormValidatorSettings = {
   formSelector: formSelector,
@@ -83,4 +86,11 @@ export const avatarFormValidatorSettings = {
   inputErrorClass: inputErrorClass,
   formObject: avatarEditForm,
   overlayCloseButtonSelector: overlayCloseButtonSelector,
+  formInputGroupSelector: formInputGroupSelector,
+};
+
+export const userInfoConfig = {
+  nameObject: profileObject,
+  aboutObject: profileInfo,
+  avatarObject: profileAvatar,
 };
