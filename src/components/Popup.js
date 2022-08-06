@@ -4,6 +4,7 @@ export default class Popup {
   constructor(settings) {
     this.overlay = settings.popup;
     this.overlayOpenedClass = settings.overlayOpenedClass;
+    this.overlayCloseButtonSelector = settings.overlayCloseButtonSelector;
   }
 
   open() {
@@ -23,8 +24,10 @@ export default class Popup {
     }
   };
 
-  setEventListeners(overlayCloseButtonSelector) {
-    const closeButton = this.overlay.querySelector(overlayCloseButtonSelector);
+  setEventListeners() {
+    const closeButton = this.overlay.querySelector(
+      this.overlayCloseButtonSelector
+    );
     closeButton.addEventListener("click", () => {
       this.close();
     });

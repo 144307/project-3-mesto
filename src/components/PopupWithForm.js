@@ -3,12 +3,12 @@ import Popup from "./Popup";
 export default class PopupWithForm extends Popup {
   constructor(settings) {
     super(settings);
-    this.overlay = settings.popup;
+    // this.overlay = settings.popup;
     this.submit = settings.submit;
     // this.formPopup = settings.form;
     this.formPopup = this.overlay.querySelector(".overlay__form");
     this.overlayFormButtonSelector = settings.overlayFormButtonSelector;
-    this.overlayCloseButtonSelector = settings.overlayCloseButtonSelector;
+    // this.overlayCloseButtonSelector = settings.overlayCloseButtonSelector;
     this.setListeners();
   }
 
@@ -54,7 +54,7 @@ export default class PopupWithForm extends Popup {
       true
     );
     // console.log("setListeners", this.formPopup);
-    super.setEventListeners(this.overlayCloseButtonSelector);
+    super.setEventListeners();
     // const closeButton = this.overlay.querySelector(
     //   this.overlayCloseButtonSelector
     // );
