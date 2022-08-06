@@ -56,3 +56,31 @@ export const addButton = document.querySelector(".profile__add-button");
 export const editAvatarButton = document.querySelector(
   ".profile__avatar-overlay"
 );
+
+export const editFormValidatorSettings = {
+  formSelector: formSelector,
+  inputSelector: fromInputSelector, // fromInputSelector
+  formSubmitButtonSelector: formSubmitButtonSelector,
+  inputSubtitleErrorClass: inputSubtitleErrorSelector,
+  inputErrorClass: inputErrorClass,
+  formObject: editProfileForm,
+  overlayCloseButtonSelector: overlayCloseButtonSelector,
+};
+export const addFormValidatorSettings = {
+  formSelector: formSelector,
+  inputSelector: fromInputSelector,
+  formSubmitButtonSelector: formSubmitButtonSelector,
+  inputSubtitleErrorClass: inputSubtitleErrorSelector,
+  inputErrorClass: inputErrorClass,
+  formObject: addForm,
+  overlayCloseButtonSelector: overlayCloseButtonSelector,
+};
+export const avatarFormValidatorSettings = {
+  formSelector: formSelector,
+  inputSelector: fromInputSelector,
+  formSubmitButtonSelector: formSubmitButtonSelector,
+  inputSubtitleErrorClass: inputSubtitleErrorSelector,
+  inputErrorClass: inputErrorClass,
+  formObject: avatarEditForm,
+  overlayCloseButtonSelector: overlayCloseButtonSelector,
+};

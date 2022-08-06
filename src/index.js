@@ -20,9 +20,9 @@ import {
   inputCardName,
   inputCardImageUrl,
   inputProfileImage,
-  editProfileForm,
-  addForm,
-  avatarEditForm,
+  // editProfileForm,
+  // addForm,
+  // avatarEditForm,
   profilePopup,
   newCardPopup,
   imagePopup,
@@ -45,14 +45,17 @@ import {
   overlayOpenedClass,
   overlayCloseButtonSelector,
   overlayFormButtonSelector,
-  formSelector,
-  fromInputSelector,
-  formSubmitButtonSelector,
-  inputSubtitleErrorSelector,
-  inputErrorClass,
+  // formSelector,
+  // fromInputSelector,
+  // formSubmitButtonSelector,
+  // inputSubtitleErrorSelector,
+  // inputErrorClass,
   editButton,
   addButton,
   editAvatarButton,
+  editFormValidatorSettings,
+  addFormValidatorSettings,
+  avatarFormValidatorSettings,
 } from "./utils/constants.js";
 
 const apiConfig = {
@@ -66,52 +69,53 @@ const apiConfig = {
 const userInfoConfig = {
   nameObject: profileObject,
   aboutObject: profileInfo,
-  getUserInfo: () => {
-    myApi
-      .getInitialCards()
-      .then((response) => {
-        console.log("response test", response[1]);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  },
+  // getUserInfo: () => {
+  //   myApi
+  //     .getInitialCards()
+  //     .then((response) => {
+  //       console.log("response test", response[1]);
+  //       return response[1];
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // },
 };
 
-const editFormValidatorSettings = {
-  formSelector: formSelector,
-  inputSelector: fromInputSelector, // fromInputSelector
-  formSubmitButton: formSubmitButtonSelector,
-  inputSubtitleErrorClass: inputSubtitleErrorSelector,
-  inputErrorClass: inputErrorClass,
-  formObject: editProfileForm,
-  overlayCloseButtonSelector: overlayCloseButtonSelector,
-};
-const addFormValidatorSettings = {
-  formSelector: formSelector,
-  inputSelector: fromInputSelector,
-  formSubmitButton: formSubmitButtonSelector,
-  inputSubtitleErrorClass: inputSubtitleErrorSelector,
-  inputErrorClass: inputErrorClass,
-  formObject: addForm,
-  overlayCloseButtonSelector: overlayCloseButtonSelector,
-};
-const avatarFormValidatorSettings = {
-  formSelector: formSelector,
-  inputSelector: fromInputSelector,
-  formSubmitButton: formSubmitButtonSelector,
-  inputSubtitleErrorClass: inputSubtitleErrorSelector,
-  inputErrorClass: inputErrorClass,
-  formObject: avatarEditForm,
-  overlayCloseButtonSelector: overlayCloseButtonSelector,
-};
+// const editFormValidatorSettings = {
+//   formSelector: formSelector,
+//   inputSelector: fromInputSelector, // fromInputSelector
+//   formSubmitButtonSelector: formSubmitButtonSelector,
+//   inputSubtitleErrorClass: inputSubtitleErrorSelector,
+//   inputErrorClass: inputErrorClass,
+//   formObject: editProfileForm,
+//   overlayCloseButtonSelector: overlayCloseButtonSelector,
+// };
+// const addFormValidatorSettings = {
+//   formSelector: formSelector,
+//   inputSelector: fromInputSelector,
+//   formSubmitButtonSelector: formSubmitButtonSelector,
+//   inputSubtitleErrorClass: inputSubtitleErrorSelector,
+//   inputErrorClass: inputErrorClass,
+//   formObject: addForm,
+//   overlayCloseButtonSelector: overlayCloseButtonSelector,
+// };
+// const avatarFormValidatorSettings = {
+//   formSelector: formSelector,
+//   inputSelector: fromInputSelector,
+//   formSubmitButtonSelector: formSubmitButtonSelector,
+//   inputSubtitleErrorClass: inputSubtitleErrorSelector,
+//   inputErrorClass: inputErrorClass,
+//   formObject: avatarEditForm,
+//   overlayCloseButtonSelector: overlayCloseButtonSelector,
+// };
 
 const profilePopupSettings = {
   popup: profilePopup,
   submit: (event) => {
     submitTitleChanges(event);
   },
-  form: editProfileForm,
+  // form: editProfileForm,
   overlayOpenedClass: overlayOpenedClass,
   overlayCloseButtonSelector: overlayCloseButtonSelector,
   overlayFormButtonSelector: overlayFormButtonSelector,
@@ -119,7 +123,7 @@ const profilePopupSettings = {
 
 const newCardPopupSettings = {
   popup: newCardPopup,
-  form: addForm,
+  // form: addForm,
   submit: (event) => {
     submitCardCreation(event);
   },
@@ -129,7 +133,7 @@ const newCardPopupSettings = {
 };
 const avatarEditPopupSettings = {
   popup: avatarEditPopup,
-  form: avatarEditForm,
+  // form: avatarEditForm,
   submit: (event) => {
     submitUpdateAvatar(event);
   },
@@ -148,11 +152,11 @@ const imagePopupSettings = {
 };
 
 const editValidate = new FormValidator(editFormValidatorSettings);
-editValidate.enableValidation();
+// editValidate.enableValidation();
 const addValidate = new FormValidator(addFormValidatorSettings);
-addValidate.enableValidation();
+// addValidate.enableValidation();
 const avatarValidate = new FormValidator(avatarFormValidatorSettings);
-avatarValidate.enableValidation();
+// avatarValidate.enableValidation();
 
 const myApi = new Api(apiConfig);
 const myProfilePopupWithForm = new PopupWithForm(profilePopupSettings);
@@ -167,7 +171,7 @@ function rerender(cardSettings) {
   return cardObject;
 }
 
-var testElements = [];
+const testElements = [];
 const mySection = new Section(
   {
     items: testElements,
@@ -181,15 +185,10 @@ const mySection = new Section(
 myApi
   .getInitialCards()
   .then((response) => {
-    myUserInfo.avatar = response[1].avatar;
-    myUserInfo.id = response[1]._id;
-    // console.log("myUserInfo.avatar", myUserInfo.avatar);
-
-    owner = response[1]._id;
-
+    myUserInfo.setUserInfo(response[1]);
     for (let i = 0; i < response[0].length; i++) {
       let owned = false;
-      if (owner === response[0][i].owner._id) {
+      if (response[1]._id === response[0][i].owner._id) {
         owned = true;
       }
 
@@ -201,7 +200,7 @@ myApi
         cardId: response[0][i]._id,
         ownerId: owner,
         apiObject: myApi,
-        testFunc: (imageSettings) => {
+        handleCardClick: (imageSettings) => {
           myImagePopupWithImage.open(imageSettings);
         },
         cardTemplateSelectpr: cardTemplateSelectpr,
@@ -219,8 +218,8 @@ myApi
 
     mySection.renderAll(testElements);
 
-    profileObject.textContent = response[1].name;
-    profileInfo.textContent = response[1].about;
+    profileObject.textContent = myUserInfo.name;
+    profileInfo.textContent = myUserInfo.about;
     profileAvatar.setAttribute("src", myUserInfo.avatar);
   })
   .catch((error) => {
@@ -228,18 +227,23 @@ myApi
   });
 
 function openProfilePopup() {
-  inputName.value = profileObject.textContent;
-  inputJob.value = profileInfo.textContent;
+  const info = myUserInfo.getUserInfo();
+  // inputName.value = profileObject.textContent;
+  // inputJob.value = profileInfo.textContent;
+  inputName.value = info.name;
+  inputJob.value = info.about;
 }
 
 function submitTitleChanges(event) {
   myProfilePopupWithForm.toggleLoadingButton("Сохранение...");
+  const inputValues = myProfilePopupWithForm.getInputValues();
   myApi
-    .changeProfile(inputName.value, inputJob.value)
+    // .changeProfile(inputName.value, inputJob.value)
+    .changeProfile(inputValues[0], inputValues[1])
     .then((response) => {
       myUserInfo.setUserInfo({
-        name: inputName.value,
-        about: inputJob.value,
+        name: inputValues[0],
+        about: inputValues[1],
       });
       myProfilePopupWithForm.close();
     })
@@ -253,20 +257,22 @@ function submitTitleChanges(event) {
 
 function submitCardCreation(event) {
   myNewCardPopupWithForm.toggleLoadingButton("Создание...");
+  const inputValues = myNewCardPopupWithForm.getInputValues();
+  console.log("inputValues", inputValues);
   myApi
-    .addCard(inputCardName.value, inputCardImageUrl.value)
+    .addCard(inputValues[0], inputValues[1])
     .then((response) => {
       console.log("response =", response);
       const newCardId = response._id;
 
       const cardSettings = {
-        name: inputCardName.value,
-        link: inputCardImageUrl.value,
+        name: inputValues[0],
+        link: inputValues[1],
         likes: 0,
         owned: true,
         cardId: newCardId,
         apiObject: myApi,
-        testFunc: (imageSettings) => {
+        handleCardClick: (imageSettings) => {
           imageSettings.overlayCloseButtonSelector = overlayCloseButtonSelector;
           console.log("image settings", imageSettings);
 
@@ -299,12 +305,12 @@ function submitUpdateAvatar(event) {
   console.log("submitUpdateAvatar");
 
   myAvatarPopupWithForm.toggleLoadingButton("Сохранение...");
-  const newUrl = inputProfileImage.value;
+  const inputValues = myAvatarPopupWithForm.getInputValues();
   myApi
-    .updateAvatar(newUrl)
+    .updateAvatar(inputValues[0])
     .then((response) => {
-      console.log("inputProfileImage.value", newUrl);
-      profileAvatar.src = newUrl;
+      console.log("inputProfileImage.value", inputValues[0]);
+      profileAvatar.src = inputValues[0];
       myAvatarPopupWithForm.close();
       console.log("profileAvatar", profileAvatar);
     })

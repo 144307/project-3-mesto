@@ -2,26 +2,37 @@ export default class FormValidator {
   constructor(options) {
     this.formSelector = options.formSelector;
     this.inputSelector = options.inputSelector;
-    this.formSubmitButton = options.formSubmitButton;
-    this.inputSubtitleErrorClass = options.inputSubtitleErrorClass;
+    this.formSubmitButtonSelector = options.formSubmitButtonSelector;
+    this.inputSubtitleErrorSelector = options.inputSubtitleErrorClass;
     this.inputErrorClass = options.inputErrorClass;
     this.formObject = options.formObject;
     // console.log("this.formObject", this.formObject);
+    // this.overlay = this.formObject.closest(".overlay__form");
+    // console.log("test", this.overlay, this.formObject);
+    this.errors = this.formObject.querySelectorAll(".overlay__form-error");
+    this.enableValidation();
   }
 
   enableValidation() {
-    // console.log("this.formObject", this.formObject);
+    this.inputFields = Array.from(
+      this.formObject.querySelectorAll(this.inputSelector)
+    );
+    this.submitButton = this.formObject.querySelector(
+      this.formSubmitButtonSelector
+    );
+
     this.formObject.addEventListener("input", (event) => {
       this.checkForm();
     });
-    this.inputs = Array.from(
-      this.formObject.querySelectorAll(this.inputSelector)
-    );
-    for (let j = 0; j < this.inputs.length; j++) {
-      this.inputs[j].addEventListener("input", () => {
-        this.checkInput(this.inputs[j], this.inputErrorClass);
+    // this.inputs = Array.from(
+    //   this.formObject.querySelectorAll(this.inputSelector)
+    // );
+    for (let j = 0; j < this.inputFields.length; j++) {
+      this.inputFields[j].addEventListener("input", () => {
+        this.checkInput(this.inputFields[j]);
       });
-      this.inputs[j].inputSubtitleErrorClass = this.inputSubtitleErrorClass;
+      this.inputFields[j].inputSubtitleErrorClass =
+        this.inputSubtitleErrorSelector;
     }
   }
   showButton(submitButton) {
@@ -32,15 +43,17 @@ export default class FormValidator {
     submitButton.disabled = true;
   }
 
-  showInputError(inputField, inputErrorClass) {
-    inputField.classList.add(inputErrorClass);
+  showInputError(inputField) {
+    inputField.classList.add(this.inputErrorClass);
   }
-  hideInputError(inputField, inputErrorClass) {
-    inputField.classList.remove(inputErrorClass);
+  hideInputError(inputField) {
+    inputField.classList.remove(this.inputErrorClass);
+    for (let i = 0; i < this.errors.length; i++) {
+      this.errors[i].textContent = "";
+    }
   }
 
-  checkInput(inputField, inputErrorClass) {
-    // console.log("checkInput");
+  checkInput(inputField) {
     const isValid = inputField.checkValidity();
 
     const errorMessage = inputField
@@ -49,46 +62,39 @@ export default class FormValidator {
     errorMessage.textContent = inputField.validationMessage;
 
     if (!isValid) {
-      this.showInputError(inputField, inputErrorClass);
+      this.showInputError(inputField);
     } else {
-      this.hideInputError(inputField, inputErrorClass);
+      this.hideInputError(inputField);
     }
   }
 
   resetFormErrros() {
-    this.overlay = this.formObject.closest(".overlay__form");
-    const errors = this.overlay.querySelectorAll(".overlay__form-error");
-    for (let i = 0; i < errors.length; i++) {
-      errors[i].textContent = "";
+    // this.overlay = this.formObject.closest(".overlay__form");
+    // const errors = this.overlay.querySelectorAll(".overlay__form-error");
+    // for (let i = 0; i < this.errors.length; i++) {
+    //   this.errors[i].textContent = "";
+    // }
+    // if (this.inputFields.length > 0) {
+    for (let i = 0; i < this.inputFields.length; i++) {
+      this.hideInputError(this.inputFields[i]);
+      //     this.inputFields[i].classList.remove(this.inputErrorClass);
+      this.inputFields[i].value = "";
     }
-    const inputs = this.overlay.querySelectorAll(".overlay__form-input");
-    if (inputs.length > 0) {
-      for (let i = 0; i < inputs.length; i++) {
-        inputs[i].classList.remove("overlay__form-input_error");
-        inputs[i].value = "";
-      }
-    }
-    this.formObject.querySelector(".overlay__form-button").disabled = true;
+    // }
+    this.submitButton.disabled = true;
   }
 
   checkForm() {
-    const inputFields = Array.from(
-      this.formObject.querySelectorAll(this.inputSelector)
-    );
-    for (let i = 0; i < inputFields.length; i++) {
-      const inputField = inputFields[i];
-      inputField.inputSubtitleErrorClass = this.inputSubtitleErrorClass;
+    for (let i = 0; i < this.inputFields.length; i++) {
+      const inputField = this.inputFields[i];
+      inputField.inputSubtitleErrorClass = this.inputSubtitleErrorSelector;
       const isValid = inputField.checkValidity();
 
-      const submitButton = inputField
-        .closest(this.formSelector)
-        .querySelector(this.formSubmitButton);
-
       if (!isValid) {
-        this.hideButton(submitButton);
+        this.hideButton(this.submitButton);
         break;
       } else {
-        this.showButton(submitButton);
+        this.showButton(this.submitButton);
       }
     }
   }

@@ -8,11 +8,7 @@ export default class Api {
     return fetch(this.baseUrl + "/users/me", {
       method: "GET",
       headers: this.headers,
-    })
-      .then(this.checkResponse)
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }).then(this.checkResponse);
   }
 
   getInitialCards() {
@@ -28,11 +24,7 @@ export default class Api {
       fetch(this.baseUrl + "/users/me", {
         method: "GET",
         headers: this.headers,
-      })
-        .then(this.checkResponse)
-        .catch((error) => {
-          console.error("Error:", error);
-        }),
+      }).then(this.checkResponse),
     ]);
   }
 
@@ -54,11 +46,7 @@ export default class Api {
         name: newName,
         about: newAbout,
       }),
-    })
-      .then(this.checkResponse)
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }).then(this.checkResponse);
   }
 
   addCard(name, link) {
@@ -75,11 +63,7 @@ export default class Api {
         name: name,
         link: link,
       }),
-    })
-      .then(this.checkResponse)
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }).then(this.checkResponse);
   }
 
   deleteCard(cardId) {
@@ -100,11 +84,7 @@ export default class Api {
     return fetch(this.baseUrl + "/cards/likes/" + cardId, {
       method: "PUT",
       headers: this.headers,
-    })
-      .then(this.checkResponse)
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }).then(this.checkResponse);
   }
 
   removeLike(cardId) {
@@ -112,11 +92,7 @@ export default class Api {
     return fetch(this.baseUrl + "/cards/likes/" + cardId, {
       method: "DELETE",
       headers: this.headers,
-    })
-      .then(this.checkResponse)
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }).then(this.checkResponse);
   }
 
   updateAvatar(avatarUrl) {
@@ -127,10 +103,6 @@ export default class Api {
       body: JSON.stringify({
         avatar: avatarUrl,
       }),
-    })
-      .then(this.checkResponse)
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }).then(this.checkResponse);
   }
 }

@@ -18,7 +18,7 @@ export default class Card {
     this._ownerId = settings.ownerId;
     this.card = null;
     this.apiObject = settings.apiObject;
-    this.testFunc = settings.testFunc;
+    this.handleCardClick = settings.handleCardClick;
     this.cardTemplateSelectpr = settings.cardTemplateSelectpr;
     this.cardSelector = settings.cardSelector;
     this.cardImageSelector = settings.cardImageSelector;
@@ -40,7 +40,7 @@ export default class Card {
     this.deleteButton.addEventListener("click", (event) => {
       this.removeCard(event, this._cardId);
     });
-    this.imageButton.addEventListener("click", (event) => {
+    this._cardImage.addEventListener("click", (event) => {
       this.openImagePopup(event);
     });
   }
@@ -50,9 +50,9 @@ export default class Card {
       this.cardTemplateSelectpr
     ).content;
     const card = cardTemplate.querySelector(this.cardSelector).cloneNode(true);
-    const cardImage = card.querySelector(this.cardImageSelector);
-    cardImage.setAttribute("src", this._link);
-    cardImage.setAttribute("alt", this._name);
+    this._cardImage = card.querySelector(this.cardImageSelector);
+    this._cardImage.setAttribute("src", this._link);
+    this._cardImage.setAttribute("alt", this._name);
     const cardTitle = card.querySelector(this.cardTitleSelector);
     cardTitle.textContent = this._name;
     this.likeButton = card.querySelector(this.cardHeartSelector);
@@ -61,7 +61,7 @@ export default class Card {
       // console.log("this._likes[i]._id", this._likes[i]._id);
       // console.log("this._ownerId", this._ownerId);
       if (this._likes[i]._id.localeCompare(this._ownerId) === 0) {
-        this._turnOnLike(card.querySelector(this.cardHeartSelector));
+        this._turnOnLike(this.likeButton);
       }
     }
     this.counter.textContent = this._likes.length;
@@ -69,7 +69,6 @@ export default class Card {
     if (this._owned) {
       this.deleteButton.setAttribute("style", "display: block");
     }
-    this.imageButton = card.querySelector(this.cardImageSelector);
     this.setEventListeners();
     this.card = card;
     return card;
@@ -134,6 +133,6 @@ export default class Card {
     // this.overlayCloseButtonSelector
 
     // myImagePopupWithImage.open(imageSettings);
-    this.testFunc(imageSettings);
+    this.handleCardClick(imageSettings);
   }
 }

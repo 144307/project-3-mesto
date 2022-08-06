@@ -8,27 +8,20 @@ export default class Popup {
 
   open() {
     this.overlay.classList.add(this.overlayOpenedClass);
-    document.addEventListener("keydown", (event) => {
-      this.handleEscClose(event, this.overlay);
-    });
+    document.addEventListener("keydown", this.handleEscClose);
   }
 
   close() {
     console.log("popup close()");
     this.overlay.classList.remove(this.overlayOpenedClass);
-    document.removeEventListener("keydown", (event) => {
-      this.handleEscClose(event, this.overlay);
-    });
+    document.removeEventListener("keydown", this.handleEscClose);
   }
 
-  handleEscClose(event, overlay) {
+  handleEscClose = (event) => {
     if (event.key === "Escape") {
-      overlay.classList.remove(this.overlayOpenedClass);
-      document.removeEventListener("keydown", (event) => {
-        this.handleEscClose(event, this.overlay);
-      });
+      this.close();
     }
-  }
+  };
 
   setEventListeners(overlayCloseButtonSelector) {
     const closeButton = this.overlay.querySelector(overlayCloseButtonSelector);
