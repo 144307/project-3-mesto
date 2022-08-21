@@ -1,0 +1,22 @@
+.profile__avatar-container {
+  width: 128px;
+  min-width: 128px;
+  position: relative;
+  cursor: pointer;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-right: 40px;
+}
+
+/* .overlay_type_avatar-edit:hover {
+  color: rgba(0, 0, 0, 0.8);
+} */
+
+@media screen and (max-width: 767px) {
+  .profile__avatar-container {
+    /* margin: 0 auto 0; */
+    display: flex;
+    justify-content: center;
+  }
+}
